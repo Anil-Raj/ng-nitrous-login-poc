@@ -14,8 +14,18 @@ export class AuthenticationSandbox {
     public login(): void {
         this.authService.login();
     }
+    public adlogin(): void {
+        this.authService.adlogin();
+    }
+    
+    public signUpSignIn(): void {
+        this.authService.signUpSignIn();
+    }
 
     public getUser(): Observable<any> {
         return this.authService.getTokenDecoded();
+    }
+    public logout(): void{
+        this.authService.logout();
     }
 }

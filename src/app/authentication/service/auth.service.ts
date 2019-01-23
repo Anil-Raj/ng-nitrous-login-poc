@@ -25,6 +25,20 @@ export class AuthService {
         }
     }
 
+    
+    public signUpSignIn() {
+        const token = this.getToken();
+        if (token == null || token === undefined || token === 'null') {
+            this.msalService.signUpSignIn();
+        }
+    }
+    public adlogin() {
+        const token = this.getToken();
+        if (token == null || token === undefined || token === 'null') {
+            this.msalService.adlogin();
+        }
+    }
+
     public getTokenDecoded(): any
     {
       return this.jwtHelper.decodeToken(this.getToken());
@@ -32,5 +46,11 @@ export class AuthService {
 
     public collectFailedRequest(request): void {
         this.cachedRequests.push(request);
+    }
+    public logout(){
+        const token = this.getToken();
+        if ( token !== undefined && token !== null&& token !== 'null' ) {
+        this.msalService.logout();
+        }
     }
 }

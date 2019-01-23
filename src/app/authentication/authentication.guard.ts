@@ -13,13 +13,15 @@ export class AuthenticationGuard implements CanActivate {
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const urlParams = new URLSearchParams(window.location.hash);
+    console.log(route.params,urlParams.get('id_token'));
+    const aa = urlParams.get('id_token');
     // Setting token in session storage to prevent immediate multiple redirection to AAD login.
-    if (urlParams.get('id_token') !== null || urlParams.get('id_token') !== undefined) {
+    if (aa !== undefined && aa !== null ) {
       window.sessionStorage.setItem('msal.idtoken', urlParams.get('id_token'));
     }
 
     const token: string = this.authSandbox.getToken();
-    if (token === null || token === undefined || token === 'null') {
+    if (token === null || token === undefined || token === 'null' || token === '') {
       this.router.navigate(['/authentication']);
       this.isAuthenticated = false;
     } else {
